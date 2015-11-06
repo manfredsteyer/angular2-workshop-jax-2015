@@ -1,25 +1,39 @@
 <h1>Flug suchen!</h1>
 
-<form #f="form">
+<form [ng-form-model]="filter">
 	<div class="form-group">
 		<label>Von</label>
-		<input [(ng-model)]="von" ng-control="von" ort required class="form-control">
+		<input ng-control="von" class="form-control">
 	
-		<show-error control="von" [errors]="['required', 'ort']"></show-error>
+		<div *ng-if="!filter.controls.von.valid">
+			Fehler!!!
+		</div>
+		
+		<div *ng-if="filter.controls.von.hasError('required')">
+			Pflichtfeld!!!
+		</div>
+
+		<div *ng-if="filter.controls.von.hasError('ort')">
+			Ort!!!
+		</div>
+
+		<div *ng-if="filter.controls.von.hasError('minlength')">
+			Zu kurz!!!
+		</div>
 	
 	</div>
 	
 	<div class="form-group">
 		<label>Nach</label>
-		<input [(ng-model)]="nach" ng-control="nach" class="form-control">
+		<input ng-control="nach" class="form-control">
 	</div>
 	
 	<div class="form-group">
 		<input type="button" 
 				class="btn btn-default" 
 				value="Suchen!" 
-				[disabled]="!f.valid"
-				(click)="suchen(f)">	
+				[disabled]="!filter.valid"
+				(click)="suchen()">	
 	</div>
 </form>
 <table class="table table-striped" *ng-if="fluege.length > 0">
@@ -39,9 +53,7 @@
 		<td>{{f.zielort | ort:'long'}}</td>
 		<td>
 			<a href="javascript:void(0)"
-				(click)="selectFlug(f)">Auswählen</a> |
-			<a href="javascript:void(0)"
-				[router-link]="['/FlugEdit', {id: f.id}]">Editieren</a>	
+				(click)="selectFlug(f)">Auswählen</a> 
 		</td>
 	</tr>
 	

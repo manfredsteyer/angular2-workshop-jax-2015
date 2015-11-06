@@ -1,12 +1,15 @@
-import { Component, NgIf, NgFor, CORE_DIRECTIVES } from 'angular2/angular2';
+import { Component, NgIf, NgFor, CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/angular2';
 import { OrtPipe } from '../pipes/ort-pipe';
 //import { MY_DIRECTIVES } from '../registry';
-declare function fetch(url:string): any;
-
+import { FlugService } from '../services/flug-service';
+import { Inject} from 'angular2/angular2';
+import { OrtValidator } from '../validators/ort-validator';
+import { ShowError } from '../validators/show-error';
+import { ROUTER_DIRECTIVES } from 'angular2/router';
 @Component({
 	selector: 'flug-suchen',
 	templateUrl: 'app/flug-suchen/flug-suchen.html',
-	directives: [CORE_DIRECTIVES],
+	directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, OrtValidator, ShowError, ROUTER_DIRECTIVES],
 	pipes: [OrtPipe]
 })
 export class FlugSuchen {
@@ -15,26 +18,21 @@ export class FlugSuchen {
 	nach: string = "Hamburg";
 	fluege = [];
 	selectedFlug;
+	flugService: FlugService;
 	
-	constructor() {
-		
+	constructor(flugService: FlugService) {
+		this.flugService = flugService;
 	}
 	
-	suchen() {
+	suchen(f) {
 		
-		var url = "http://www.angular.at/api/flug"
-				+ "?abflugOrt=" 
-				+ encodeURIComponent(this.von) 
-				+ "&zielOrt=" 
-				+ encodeURIComponent(this.nach);
-
+		console.debug(f);
 		
-		fetch(url)
-			.then((r) => r.json())
-			.then((r) => {
+		this.flugService
+			.find(this.von, this.nach)
+			.subscribe((r) => {
 				this.fluege = r;
 			});
-			
 	}
 	
 	selectFlug(flug) {

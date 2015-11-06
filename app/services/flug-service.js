@@ -1,0 +1,51 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") return Reflect.decorate(decorators, target, key, desc);
+    switch (arguments.length) {
+        case 2: return decorators.reduceRight(function(o, d) { return (d && d(o)) || o; }, target);
+        case 3: return decorators.reduceRight(function(o, d) { return (d && d(target, key)), void 0; }, void 0);
+        case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
+    }
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var angular2_1 = require('angular2/angular2');
+var registry_1 = require('../registry');
+var http_1 = require('angular2/http');
+var FlugService = (function () {
+    function FlugService(baseUrl, http) {
+        this.baseUrl = baseUrl;
+        this.http = http;
+    }
+    FlugService.prototype.find = function (von, nach) {
+        /*
+        var url = this.baseUrl + "/flug"
+                + "?abflugOrt="
+                + encodeURIComponent(von)
+                + "&zielOrt="
+                + encodeURIComponent(nach);
+    
+        return fetch(url)
+                  .then((r) => r.json());
+        */
+        var url = this.baseUrl + "/flug";
+        var params = new http_1.URLSearchParams();
+        params.append('abflugOrt', von);
+        params.append('zielOrt', nach);
+        return this
+            .http
+            .get(url, { search: params })
+            .map(function (r) { return r.json(); });
+        // function(r) { return r.json(); }	
+    };
+    FlugService = __decorate([
+        __param(0, angular2_1.Inject(registry_1.BASE_URL)), 
+        __metadata('design:paramtypes', [String, http_1.Http])
+    ], FlugService);
+    return FlugService;
+})();
+exports.FlugService = FlugService;
+//# sourceMappingURL=flug-service.js.map
