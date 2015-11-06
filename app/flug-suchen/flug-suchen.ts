@@ -6,10 +6,12 @@ import { Inject} from 'angular2/angular2';
 import { OrtValidator } from '../validators/ort-validator';
 import { ShowError } from '../validators/show-error';
 import { ROUTER_DIRECTIVES } from 'angular2/router';
+import { FlugCard } from '../flug-card/flug-card';
+
 @Component({
 	selector: 'flug-suchen',
 	templateUrl: 'app/flug-suchen/flug-suchen.html',
-	directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, OrtValidator, ShowError, ROUTER_DIRECTIVES],
+	directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, OrtValidator, ShowError, ROUTER_DIRECTIVES, FlugCard],
 	pipes: [OrtPipe]
 })
 export class FlugSuchen {

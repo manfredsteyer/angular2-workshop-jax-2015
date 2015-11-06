@@ -16,6 +16,7 @@ var flug_service_1 = require('../services/flug-service');
 var ort_validator_1 = require('../validators/ort-validator');
 var show_error_1 = require('../validators/show-error');
 var router_1 = require('angular2/router');
+var flug_card_1 = require('../flug-card/flug-card');
 var FlugSuchen = (function () {
     function FlugSuchen(flugService) {
         this.von = "Graz";
@@ -39,7 +40,7 @@ var FlugSuchen = (function () {
         angular2_1.Component({
             selector: 'flug-suchen',
             templateUrl: 'app/flug-suchen/flug-suchen.html',
-            directives: [angular2_1.CORE_DIRECTIVES, angular2_1.FORM_DIRECTIVES, ort_validator_1.OrtValidator, show_error_1.ShowError, router_1.ROUTER_DIRECTIVES],
+            directives: [angular2_1.CORE_DIRECTIVES, angular2_1.FORM_DIRECTIVES, ort_validator_1.OrtValidator, show_error_1.ShowError, router_1.ROUTER_DIRECTIVES, flug_card_1.FlugCard],
             pipes: [ort_pipe_1.OrtPipe]
         }), 
         __metadata('design:paramtypes', [flug_service_1.FlugService])

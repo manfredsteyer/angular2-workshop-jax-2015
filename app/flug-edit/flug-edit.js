@@ -11,16 +11,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var angular2_1 = require('angular2/angular2');
 var router_1 = require('angular2/router');
+var flug_service_1 = require('../services/flug-service');
+var angular2_2 = require('angular2/angular2');
+var date_control_1 = require('../date-control/date-control');
 var FlugEdit = (function () {
-    function FlugEdit(params) {
+    function FlugEdit(params, flugService) {
+        var _this = this;
         this.info = "FlugEdit!";
         this.id = params.get('id');
+        flugService
+            .findById(this.id)
+            .subscribe(function (f) {
+            _this.flug = f;
+        });
+        this.flugService = flugService;
     }
+    FlugEdit.prototype.save = function () {
+        var _this = this;
+        this
+            .flugService
+            .save(this.flug)
+            .subscribe(function (r) {
+            if (r.status >= 400) {
+                _this.message = r.text();
+            }
+            else {
+                _this.message = "Flug gespeichert!";
+            }
+        }, function (err) {
+            _this.message = err;
+        });
+    };
     FlugEdit = __decorate([
         angular2_1.Component({
-            templateUrl: 'app/flug-edit/flug-edit.html'
+            templateUrl: 'app/flug-edit/flug-edit.html',
+            directives: [angular2_2.CORE_DIRECTIVES, angular2_2.FORM_DIRECTIVES, date_control_1.DateControl]
         }), 
-        __metadata('design:paramtypes', [router_1.RouteParams])
+        __metadata('design:paramtypes', [router_1.RouteParams, flug_service_1.FlugService])
     ], FlugEdit);
     return FlugEdit;
 })();

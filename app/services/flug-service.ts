@@ -1,6 +1,6 @@
 import { Inject} from 'angular2/angular2';
 import { BASE_URL } from '../registry';
-import { Http, URLSearchParams } from 'angular2/http';
+import { Http, URLSearchParams, Headers } from 'angular2/http';
 
 declare function fetch(url:string): any;
 
@@ -12,6 +12,30 @@ export class FlugService {
 	constructor(@Inject(BASE_URL) baseUrl: string, http: Http) {
 		this.baseUrl = baseUrl;
 		this.http = http;	
+	}
+	
+	findById(id) {
+		
+		var url = this.baseUrl + "/flug";
+		
+		var params = new URLSearchParams();
+		params.append('flugNummer', id);
+		
+		return this
+				.http
+				.get(url, { search: params})
+				.map(r => r.json());
+	}
+	
+	save(flug) {
+		
+		var url = this.baseUrl + "/flug";
+		var headers = new Headers();
+		headers.append('Content-Type', 'text/json');
+		
+		return this
+				.http
+				.post(url, JSON.stringify(flug), {headers:headers } );
 	}
 	
 	find(von, nach) {

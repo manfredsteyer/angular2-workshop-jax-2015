@@ -20,6 +20,23 @@ var FlugService = (function () {
         this.baseUrl = baseUrl;
         this.http = http;
     }
+    FlugService.prototype.findById = function (id) {
+        var url = this.baseUrl + "/flug";
+        var params = new http_1.URLSearchParams();
+        params.append('flugNummer', id);
+        return this
+            .http
+            .get(url, { search: params })
+            .map(function (r) { return r.json(); });
+    };
+    FlugService.prototype.save = function (flug) {
+        var url = this.baseUrl + "/flug";
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'text/json');
+        return this
+            .http
+            .post(url, JSON.stringify(flug), { headers: headers });
+    };
     FlugService.prototype.find = function (von, nach) {
         /*
         var url = this.baseUrl + "/flug"

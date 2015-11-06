@@ -22,6 +22,8 @@
 				(click)="suchen(f)">	
 	</div>
 </form>
+
+
 <table class="table table-striped" *ng-if="fluege.length > 0">
 
 	<tr>
@@ -44,5 +46,23 @@
 				[router-link]="['/FlugEdit', {id: f.id}]">Editieren</a>	
 		</td>
 	</tr>
-	
 </table>
+
+
+
+
+
+<div>
+	<div *ng-for='#f of fluege' class="col-sm-4" >
+		<flug-card 
+			[item]="f" 
+			[selected]="f == selectedFlug"
+			(item-selected)="selectedFlug = $event">
+			
+			<p>
+				{{f.freiePlaetze}} von {{f.plaetze}} Plätzen frei.
+			</p>
+			
+		</flug-card>
+	</div>
+</div>

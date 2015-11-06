@@ -1,4 +1,32 @@
 <h1>{{info}}</h1>
-<p>
-	... Flug #{{id}} ...	
-</p>
+
+<div *ng-if="message" class="alert alert-info">
+	{{message}}
+</div>	
+
+<div class="form-group">
+	<label>Id: </label>
+	<input [(ng-model)]="flug.id" class="form-control">
+</div>	
+
+<div class="form-group">
+	<label>Datum: </label>
+	<input [(ng-model)]="flug.datum" class="form-control">
+	
+	<date-control [(date)]="flug.datum"></date-control>	
+</div>	
+
+<div class="form-group">
+	<label>Von: </label>
+	<input [(ng-model)]="flug.abflugort" class="form-control">
+</div>	
+
+<div class="form-group">
+	<label>Nach: </label>
+	<input [(ng-model)]="flug.zielort" class="form-control">
+</div>	
+
+<div class="form-group">
+	<input type="button" value="Speichern"
+			class="btn" (click)="save()">
+</div>
