@@ -20,7 +20,7 @@ var ShowError = (function () {
     Object.defineProperty(ShowError.prototype, "errorMessage", {
         get: function () {
             var control = this.formDir.form.find(this.controlPath);
-            if (control != null /*&& control.touched*/) {
+            if (control != null && control.touched) {
                 for (var i = 0; i < this.errorTypes.length; ++i) {
                     if (control.hasError(this.errorTypes[i])) {
                         return this._errorMessage(this.errorTypes[i]);

@@ -56,7 +56,6 @@ var FlugService = (function () {
             .http
             .get(url, { search: params })
             .map(function (r) { return r.json(); });
-        // function(r) { return r.json(); }	
     };
     FlugService = __decorate([
         __param(0, angular2_1.Inject(registry_1.BASE_URL)), 

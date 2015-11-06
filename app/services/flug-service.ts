@@ -61,10 +61,6 @@ export class FlugService {
 				.http
 				.get(url, { search: params})
 				.map(r => r.json());
-			
-			
-			
-		// function(r) { return r.json(); }	
 		
 	}
 	
